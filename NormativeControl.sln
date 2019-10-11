@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NormativeControl", "NormativeControl\NormativeControl.csproj", "{BDDD59DC-2690-47B8-975A-290F6E2AF2C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDDD59DC-2690-47B8-975A-290F6E2AF2C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDDD59DC-2690-47B8-975A-290F6E2AF2C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDDD59DC-2690-47B8-975A-290F6E2AF2C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDDD59DC-2690-47B8-975A-290F6E2AF2C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {184DC709-7776-4EDC-98B7-2ECEBD40C471}
+	EndGlobalSection
+EndGlobal
