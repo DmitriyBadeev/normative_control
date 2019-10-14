@@ -27,6 +27,14 @@ const conf = {
                     fallback: 'style-loader',
                     use: ['css-loader', 'postcss-loader' , 'sass-loader']
                 }))
+            },
+            {
+                test: /\.(jpg|png|svg)$/,
+                loader: 'file-loader',
+                options: {
+                    outputPath: 'img',
+                    name: '[name].[ext]'
+                },
             }
         ]
     },
