@@ -69,16 +69,17 @@ namespace NormativeControl
                 app.UseHsts();
             }
 
+            app.UseCors(builder => builder.WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod());
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
-            app.UseCors(builder => builder.WithOrigins("http://localhost:8080"));
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "wwwroot";
+                spa.Options.SourcePath = "wwwroot"; 
             });
         }
     }

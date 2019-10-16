@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import App from './App';
 import './index.sass';
+import Loading from "./Components/Loading/Loading";
+
 
 const Main = React.lazy(() => import("./Pages/Main"));
 const Rules = React.lazy(() => import("./Pages/Rules"));
@@ -14,7 +16,7 @@ const SignIn = React.lazy(() => import("./Pages/RegistrationAndLogIn/SignIn"));
 ReactDOM.render(
     <BrowserRouter>
         <App>
-            <Suspense fallback={"loading..."}>
+            <Suspense fallback={<Loading />}>
                 <Switch>
                     <Route exact path="/" component={props => <Main {...props} />} />
                     <Route path="/rules" component={props => <Rules {...props} />} />

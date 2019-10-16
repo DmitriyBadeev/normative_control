@@ -1,11 +1,13 @@
 
 $main-color: #DB2226
+$black: #413939
 
 .active
   color: $main-color
 
 .header
   background: #F4F4F4
+  z-index: 999
   box-shadow: 0 0 5px rgba(0, 0, 0, .25)
   display: flex
   position: fixed
@@ -46,6 +48,8 @@ $main-color: #DB2226
           color: $main-color
 
   .user-wrapper
+    color: $black
+
     .user__link
       margin-left: 30px
       font-size: 14px
@@ -55,6 +59,26 @@ $main-color: #DB2226
       &:hover
         color: $main-color
 
+    .user
+      display: inline-flex
+      align-items: center
+      font-weight: 600
+      font-size: 14px
+      svg
+        margin-right: 10px
+
+    .user-exit
+      display: inline-flex
+      font-size: 14px
+      margin-left: 30px
+      cursor: pointer
+      align-items: center
+      font-weight: 600
+      &:hover
+        color: $main-color
+      svg
+        margin-right: 10px
+        font-size: 15px
 
 
 
