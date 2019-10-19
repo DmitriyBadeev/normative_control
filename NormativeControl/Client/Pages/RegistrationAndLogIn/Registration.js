@@ -1,9 +1,8 @@
 import React from 'react';
 import {TextField, Checkbox, FormControlLabel} from '@material-ui/core';
 import SolidButton from '../../Components/Buttons/SolidButton';
-import axios from 'axios';
-import { PATH, REGISTRATION_URL } from "../../Config";
 
+import * as API from '../../API';
 import './field-style.sass';
 
 export default class Registration extends React.Component{
@@ -18,45 +17,11 @@ export default class Registration extends React.Component{
             repeatPassword: '',
             group: '',
             check: false,
-            error: ''
+            error: '',
+            isLoading: false
         };
 
-        this.nameHandle = this.nameHandle.bind(this);
-        this.lastNameHandle = this.lastNameHandle.bind(this);
-        this.emailHandler = this.emailHandler.bind(this);
-        this.groupHandler = this.groupHandler.bind(this);
-        this.passwordHandler = this.passwordHandler.bind(this);
-        this.passwordRepeatHandler = this.passwordRepeatHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
-        this.checkHandler = this.checkHandler.bind(this);
-    }
-
-    nameHandle(e) {
-        this.setState({name: e.target.value})
-    }
-
-    lastNameHandle(e) {
-        this.setState({lastName: e.target.value})
-    }
-
-    emailHandler(e) {
-        this.setState({email: e.target.value})
-    }
-
-    passwordHandler(e) {
-        this.setState({password: e.target.value})
-    }
-
-    passwordRepeatHandler(e) {
-        this.setState({repeatPassword: e.target.value})
-    }
-
-    checkHandler(e) {
-        this.setState({check: e.target.checked})
-    }
-
-    groupHandler(e) {
-        this.setState({group: e.target.value})
     }
 
     submitHandler(e) {
@@ -73,28 +38,25 @@ export default class Registration extends React.Component{
             return;
         }
 
-        const data = {
-            Name: this.state.name,
-            LastName: this.state.lastName,
-            Email: this.state.email,
-            Password: this.state.password,
-            Group: this.state.group,
-            Role: 'Студент'
-        };
-
-        axios.post(PATH+REGISTRATION_URL, data)
+        this.setState({isLoading: true});
+        API.Registration(
+            this.state.name, this.state.lastName, this.state.email, this.state.password, this.state.group, 'Студент')
             .then(res => {
                 localStorage.setItem('token', res.data.token);
                 location.replace('/');
+                this.setState({isLoading: false});
             })
             .catch(error => {
+                this.setState({isLoading: false});
                 if(error.response.status === 409)
                     this.setState({error: "Аккаунт с таким Email уже существует"});
+                else
+                    this.setState({error: error.response.statusText});
             })
     }
 
     render() {
-        return <div>
+        return <main>
             <h1 className="center">Регистрация</h1>
             <form className="logpass-form" onSubmit={this.submitHandler}>
                 <div className="wrapper-field">
@@ -105,7 +67,7 @@ export default class Registration extends React.Component{
                         placeholder="Ваше имя"
                         margin="normal"
                         required={true}
-                        onChange={this.nameHandle}
+                        onChange={(e) => this.setState({name: e.target.value})}
                     />
                 </div>
                 <div className="wrapper-field">
@@ -116,7 +78,7 @@ export default class Registration extends React.Component{
                         placeholder="Ваша фамилия"
                         margin="normal"
                         required={true}
-                        onChange={this.lastNameHandle}
+                        onChange={(e) => this.setState({lastName: e.target.value})}
                     />
                 </div>
                 <div className="wrapper-field">
@@ -127,7 +89,7 @@ export default class Registration extends React.Component{
                         placeholder="Email"
                         margin="normal"
                         required={true}
-                        onChange={this.emailHandler}
+                        onChange={(e) => this.setState({email: e.target.value})}
                     />
                 </div>
                 <div className="wrapper-field">
@@ -138,7 +100,7 @@ export default class Registration extends React.Component{
                         placeholder="Группа"
                         margin="normal"
                         required={true}
-                        onChange={this.groupHandler}
+                        onChange={(e) => this.setState({group: e.target.value})}
                     />
                 </div>
                 <div className="wrapper-field">
@@ -149,7 +111,7 @@ export default class Registration extends React.Component{
                         placeholder="Пароль"
                         margin="normal"
                         required={true}
-                        onChange={this.passwordHandler}
+                        onChange={(e) => this.setState({password: e.target.value})}
                         type="password"
                     />
                 </div>
@@ -161,21 +123,21 @@ export default class Registration extends React.Component{
                         placeholder="Повторите пароль"
                         margin="normal"
                         required={true}
-                        onChange={this.passwordRepeatHandler}
+                        onChange={(e) => this.setState({repeatPassword: e.target.value})}
                         type="password"
                     />
                 </div>
                 <div className="wrapper-check">
                     <FormControlLabel
                         control={
-                            <Checkbox onChange={this.checkHandler} />
+                            <Checkbox onChange={(e) => this.setState({check: e.target.checked})} />
                         }
                         label="Подтверждение на обработку персональных данных"
                     />
                 </div>
                 {this.state.error? <p className="form-error">{this.state.error}</p>: null}
-                <SolidButton text="Зарегистрироваться" size="big" className="form-button"/>
+                <SolidButton text={this.state.isLoading? "Загрузка..." : "Зарегистрироваться"} size="big" className="form-button"/>
             </form>
-        </div>
+        </main>
     }
 }

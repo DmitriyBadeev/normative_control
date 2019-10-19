@@ -1,0 +1,46 @@
+$main-color: #cb2123
+$success-color: #21C931
+$title-color: #1f1f1f
+
+.stepper
+  display: flex
+  align-items: center
+  .step
+    display: flex
+    align-items: center
+    opacity: 0.3
+    transition: all 0.4s
+    &__num
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 28px
+      height: 28px
+      border-radius: 50%
+      border: 2px solid black
+      font-size: 12px
+      font-weight: 600
+      margin-right: 15px
+    &__title
+      color: $title-color
+      font-weight: 600
+    &__line
+      background: black
+      opacity: 0.2
+      width: 60px
+      height: 1px
+      margin: 0 20px
+
+  .step_active
+    opacity: 1
+    .step__num
+      transition: all 0.4s
+      color: $main-color
+      border: solid 2px $main-color
+
+  .step_success
+    opacity: 1
+    .step__num
+      transition: all 0.4s
+      color: $success-color
+      border: solid 2px $success-color

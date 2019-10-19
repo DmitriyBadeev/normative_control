@@ -1,5 +1,6 @@
 
 $main-color: #DB2226
+$main-color-disabled: #E18385
 $main-color-hover: #cb2123
 
 .solid-button
@@ -12,6 +13,8 @@ $main-color-hover: #cb2123
   transition: all 0.1s
   &:hover
     background: $main-color-hover
+  &:disabled
+    background: $main-color-disabled
 
 .big
   width: 200px

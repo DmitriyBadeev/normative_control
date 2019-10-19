@@ -29,7 +29,7 @@ const conf = {
                 }))
             },
             {
-                test: /\.(jpg|png|svg)$/,
+                test: /\.(jpg|png|svg|ico)$/,
                 loader: 'file-loader',
                 options: {
                     outputPath: 'img',

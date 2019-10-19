@@ -5,7 +5,9 @@ import './buttons.sass';
 export default class SolidButton extends React.Component{
 
     render() {
-        return <button className={`solid-button ${this.props.size} ${this.props.className}`}>
+        return <button className={`solid-button ${this.props.size} ${this.props.className}`}
+                       disabled={this.props.disable}
+                       onClick={this.props.onClick}>
             {this.props.text}
         </button>
     }

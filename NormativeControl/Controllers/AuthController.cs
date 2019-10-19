@@ -42,6 +42,7 @@ namespace NormativeControl.Controllers
                 email = user.Email,
                 name = user.Name,
                 lastName = user.LastName,
+                group = user.Group,
                 role = user.Role
             };
 

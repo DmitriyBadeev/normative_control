@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import { PATH, USER_DATA_URL } from "../../Config";
+import { connect } from 'react-redux';
+
+import * as API from "../../API";
 
 import logo from '../../img/logo.png';
 import './header.sass'
+import {authSuccess} from "../../Store/Auth/actions";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props);
 
@@ -25,18 +27,15 @@ export default class Header extends React.Component {
         const key = localStorage.getItem('token');
 
         if (key) {
-            const config = {
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
-            };
-
-            axios.get(PATH+USER_DATA_URL, config)
+            API.GetUserData()
                 .then(res => {
                     this.setState({
                         isAuth: true,
                         name: res.data.name,
                         lastName: res.data.lastName,
                         role: res.data.role
-                    })
+                    });
+                    this.props.AuthSuccess(res.data);
                 })
                 .catch(error => {
                     localStorage.removeItem('token');
@@ -47,7 +46,7 @@ export default class Header extends React.Component {
 
     exit() {
         localStorage.removeItem('token');
-        location.reload();
+        location.replace('/');
     }
 
     render() {
@@ -84,10 +83,12 @@ export default class Header extends React.Component {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <span className="user">
-                            <FontAwesomeIcon icon="user" />
-                            <span className="user-name">{`${this.state.lastName} ${this.state.name}`}</span>
-                        </span>
+                        <Link to="/profile">
+                            <span className="user">
+                                <FontAwesomeIcon icon="user" />
+                                <span className="user-name">{`${this.state.lastName} ${this.state.name}`}</span>
+                            </span>
+                        </Link>
                         <span className="user-exit" onClick={this.exit}>
                             <FontAwesomeIcon icon="sign-out-alt" /> Выход
                         </span>
@@ -97,3 +98,15 @@ export default class Header extends React.Component {
         </header>
     }
 }
+
+const mapStateToProps = (state) => {
+    return {}
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        AuthSuccess: (userData) => dispatch(authSuccess(userData))
+    }
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

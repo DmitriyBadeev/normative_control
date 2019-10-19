@@ -12,11 +12,9 @@ import rootReducer from './store/rootReducer';
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {faUserEdit, faSignInAlt, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import {faUserEdit, faSignInAlt, faUser, faSignOutAlt, faCheck} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faUserEdit, faSignInAlt, faUser, faSignOutAlt);
-
-
+library.add(faUserEdit, faSignInAlt, faUser, faSignOutAlt, faCheck);
 
 const App = ({ children }) => (
     <Provider store={store}>

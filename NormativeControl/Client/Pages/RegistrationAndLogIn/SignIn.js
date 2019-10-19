@@ -1,9 +1,8 @@
 import React from 'react';
-import {TextField} from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import SolidButton from '../../Components/Buttons/SolidButton';
 
-import axios from 'axios';
-import { PATH, TOKEN_URL } from '../../Config';
+import * as API from '../../API';
 
 export default class SignIn extends React.Component{
     constructor(props) {
@@ -12,49 +11,41 @@ export default class SignIn extends React.Component{
         this.state = {
             email: '',
             password: '',
+            isLoading: false,
             error: ''
         };
 
         this.submitHandler = this.submitHandler.bind(this);
-        this.emailHandler = this.emailHandler.bind(this);
-        this.passwordHandler = this.passwordHandler.bind(this);
     }
 
     submitHandler(e) {
         e.preventDefault();
 
-        const config = {
-            params: {
-                "login": this.state.email,
-                "password": this.state.password
-            }
-        };
+        this.setState({isLoading: true});
 
-        axios.get(PATH+TOKEN_URL, config)
+        API.GetToken(this.state.email, this.state.password)
             .then(res => {
                 localStorage.setItem('token', res.data.accses_token);
+
+                this.setState({isLoading: false});
 
                 setTimeout(function () {
                     location.replace('/')
                 }, 0)
             })
             .catch(error => {
+                this.setState({isLoading: false});
+
                 if(error.response.status === 401) {
                     this.setState({error: 'Неверный логин или пароль'})
+                } else {
+                    this.setState({error: error.response.statusText})
                 }
             })
     }
 
-    emailHandler(e) {
-        this.setState({email: e.target.value})
-    }
-
-    passwordHandler(e) {
-        this.setState({password: e.target.value})
-    }
-
     render() {
-        return <div>
+        return <main>
             <h1 className="center">Войти в систему</h1>
             <form className="logpass-form" onSubmit={this.submitHandler}>
                 <div className="wrapper-field">
@@ -65,7 +56,7 @@ export default class SignIn extends React.Component{
                         placeholder="Email"
                         margin="normal"
                         required={true}
-                        onChange={this.emailHandler}
+                        onChange={(e) => this.setState({email: e.target.value})}
                     />
                 </div>
                 <div className="wrapper-field">
@@ -76,13 +67,13 @@ export default class SignIn extends React.Component{
                         placeholder="Пароль"
                         margin="normal"
                         required={true}
-                        onChange={this.passwordHandler}
+                        onChange={(e) => this.setState({password: e.target.value})}
                         type="password"
                     />
                 </div>
                 {this.state.error? <p className="form-error">{this.state.error}</p>: null}
-                <SolidButton text="Войти" size="big" className="form-button"/>
+                <SolidButton text={this.state.isLoading? "Загрузка..." : "Войти"} size="big" className="form-button"/>
             </form>
-        </div>
+        </main>
     }
 }

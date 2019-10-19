@@ -1,0 +1,50 @@
+
+$text-color: #333333
+$text-grey: #888888
+$grey: #dadada
+$main-color: #CB2123
+
+.step-wrapper
+  margin: 50px 0
+
+.step-text
+  color: $text-color
+  font-size: 15px
+
+.send-buttons
+  display: flex
+  justify-content: space-between
+  position: fixed
+  bottom: 50px
+  width: 1140px
+
+.templates
+  margin: 40px 0
+  display: flex
+  flex-wrap: wrap
+  .template
+    cursor: pointer
+    transition: all 0.3s
+    box-sizing: border-box
+    margin: 0 50px 30px 0
+    width: 230px
+    display: flex
+    align-items: center
+    flex-direction: column
+    border: 2px solid $grey
+    border-radius: 5px
+    padding: 20px
+    &__title
+      font-size: 18px
+      font-weight: 600
+    &__link
+      font-size: 13px
+      margin: 7px 0
+      color: $text-grey
+      &:hover
+        color: $main-color
+
+  .template_active
+    border: 2px solid $main-color
+
+
