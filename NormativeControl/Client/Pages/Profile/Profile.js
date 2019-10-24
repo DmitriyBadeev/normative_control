@@ -16,7 +16,6 @@ class Profile extends React.Component {
                 <img src={studentIcon} alt="Студент" className="profile-card__img"/>
                 <h3 className="profile-card__role">{this.props.userData.role}</h3>
                 <div className="profile-card__table">
-
                     <div className="profile-card__row">
                         <p className="profile-card__key">ID:</p>
                         <p className="profile-card__value">{this.props.userData.id}</p>

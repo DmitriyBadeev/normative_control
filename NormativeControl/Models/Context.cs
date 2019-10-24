@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using NormativeControl.Models;
 
 namespace NormativeControl.Models
 {
@@ -14,5 +15,7 @@ namespace NormativeControl.Models
             : base(options)
         {
         }
+
+        public DbSet<NormativeControl.Models.Work> Work { get; set; }
     }
 }

@@ -20,7 +20,7 @@ export default class Main extends React.Component{
                     </div>
                 </Link>
 
-                <Link to="/send">
+                <Link to="/send/1-1">
                     <div className="main-card">
                         <img src={sendIcon} alt="Отправить работу" className="main-card__img"/>
                         <h3 className="main-card__title">Отправить работу</h3>

@@ -16,6 +16,8 @@ import {faUserEdit, faSignInAlt, faUser, faSignOutAlt, faCheck} from '@fortaweso
 
 library.add(faUserEdit, faSignInAlt, faUser, faSignOutAlt, faCheck);
 
+import './index.sass';
+
 const App = ({ children }) => (
     <Provider store={store}>
         <Header page={children} />

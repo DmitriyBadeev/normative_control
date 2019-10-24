@@ -67,7 +67,7 @@ class Header extends React.Component {
                 <nav className="nav">
                     <Link className={`nav__link ${currentUrl === '/'? 'active':''}`} to='/'>Главная</Link>
                     <Link className={`nav__link ${currentUrl === '/rules'? 'active':''}`} to='/rules'>Правила оформления</Link>
-                    <Link className={`nav__link ${currentUrl === '/send'? 'active':''}`} to='/send'>Отправить работу</Link>
+                    <Link className={`nav__link ${currentUrl === '/send/1-1'? 'active':''}`} to='/send/1-1'>Отправить работу</Link>
                     <Link className={`nav__link ${currentUrl === '/status'? 'active':''}`} to='/status'>Статус проверки работы</Link>
                 </nav>
             </div>

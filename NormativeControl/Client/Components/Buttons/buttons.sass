@@ -1,7 +1,10 @@
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap&subset=cyrillic')
+
 $main-color: #DB2226
 $main-color-disabled: #E18385
 $main-color-hover: #cb2123
+$color-black: #1f1f1f
 
 .solid-button
   display: block
@@ -19,3 +22,27 @@ $main-color-hover: #cb2123
 .big
   width: 200px
   height: 50px
+
+.medium
+  width: 150px
+  height: 40px
+
+.small
+  width: 120px
+  height: 30px
+
+.lite-button
+  display: block
+  border: solid 2px $main-color
+  border-radius: 5px
+  cursor: pointer
+  transition: all 0.1s
+  background: white
+  color: $color-black
+  font-weight: 400
+  &:hover
+    border-color: #cb0001
+    color: $main-color
+  &:disabled
+    border-color: $main-color-disabled
+    color: $color-black

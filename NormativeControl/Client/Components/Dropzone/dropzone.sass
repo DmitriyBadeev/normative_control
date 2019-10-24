@@ -1,0 +1,36 @@
+
+$main-color: #CB2123
+$success-color: #21C931
+
+.dropzone-container
+  width: 500px
+  cursor: pointer
+  height: 200px
+  border: solid 2px $main-color
+  border-radius: 5px
+  display: flex
+  justify-content: center
+  align-items: center
+
+  .dropzone-text
+    font-weight: 600
+    font-size: 14px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+  .dropzone-error
+    color: $main-color
+    font-size: 13px
+
+.dropzone-container_success
+  border: solid 2px $success-color
+
+.dropzone-line
+  margin: 10px 0
+
+.dropzone-icon
+  width: 80px
+  height: 80px
+  margin-top: 20px

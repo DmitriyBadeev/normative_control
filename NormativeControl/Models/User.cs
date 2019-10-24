@@ -20,5 +20,7 @@ namespace NormativeControl.Models
         public string Group { get; set; }
 
         public string Role { get; set; }
+
+        public IEnumerable<Work> Works { get; set; }
     }
 }

@@ -1,9 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SolidButton from "../../Components/Buttons/SolidButton";
 
 import './send.sass';
+import {Checkbox, FormControlLabel} from "@material-ui/core";
 
-export default function () {
+export default function ({templates, selectedTemplate, isGlobalChecked, getGlobalErrors, file}) {
+
+    const [check, setCheck] = useState({isEmail: false});
+
+    const Send = () => {
+        console.log(check.isEmail);
+    };
+
     return <div className="step-wrapper">
-        <h1>Шаг 4</h1>
+        <p>Отправьте работу на проверку нормконтроллеру.</p>
+
+        <div className="step__table mt-30">
+            <div className="step__row">
+                <p className="step__el step__el_key">Выбран шаблон:</p>
+                <p className="step__el step__el_value">{templates[selectedTemplate - 1]}</p>
+            </div>
+            <div className="step__row">
+                <p className="step__el step__el_key">Загружен файл:</p>
+                <p className="step__el step__el_value">doc1.docx</p>
+            </div>
+            <div className="step__row">
+                <p className="step__el step__el_key">Проверка:</p>
+                <div className="step__el step__el_value"><div className={`step__point ${isGlobalChecked? "step__point_active" : null}`} />
+                    {isGlobalChecked? "Пройдена": "Не пройдена"}</div>
+            </div>
+            <div className="step__row">
+                <p className="step__el step__el_key">Ошибки:</p>
+                <p className="step__el step__el_value">{getGlobalErrors.length}</p>
+            </div>
+        </div>
+
+        <FormControlLabel
+            control={
+                <Checkbox onChange={(e) => setCheck({isEmail: e.target.checked})} />
+            }
+            label="Уведомлять по почте о статусе проверки"
+        />
+
+        {
+            getGlobalErrors.length !== 0 ?
+                <p className="error mt-20">Компьютер нашел у вас ошибки в оформлении работы, вы уверены, что хотите отправить работу?</p>
+            :
+                null
+        }
+
+        <SolidButton text="Отправить" size="small" className="mt-20" onClick={Send}/>
     </div>
 }

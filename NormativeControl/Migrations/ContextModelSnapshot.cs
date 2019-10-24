@@ -18,6 +18,25 @@ namespace NormativeControl.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("NormativeControl.Models.Error", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("NumberElement");
+
+                    b.Property<int>("WorkId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkId");
+
+                    b.ToTable("Error");
+                });
+
             modelBuilder.Entity("NormativeControl.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -39,6 +58,45 @@ namespace NormativeControl.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("NormativeControl.Models.Work", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NameFile");
+
+                    b.Property<string>("Path");
+
+                    b.Property<string>("Status");
+
+                    b.Property<int>("StudentId");
+
+                    b.Property<string>("Template");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Work");
+                });
+
+            modelBuilder.Entity("NormativeControl.Models.Error", b =>
+                {
+                    b.HasOne("NormativeControl.Models.Work", "Work")
+                        .WithMany("Errors")
+                        .HasForeignKey("WorkId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("NormativeControl.Models.Work", b =>
+                {
+                    b.HasOne("NormativeControl.Models.User", "Student")
+                        .WithMany("Works")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

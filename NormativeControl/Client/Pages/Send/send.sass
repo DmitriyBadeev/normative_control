@@ -3,6 +3,15 @@ $text-color: #333333
 $text-grey: #888888
 $grey: #dadada
 $main-color: #CB2123
+$success-color: #21C931
+
+.shouldAuth
+  font-size: 18px
+  a
+    text-decoration: underline #8b8b8b
+  a:hover
+    color: $main-color
+    text-decoration: underline $main-color
 
 .step-wrapper
   margin: 50px 0
@@ -17,6 +26,9 @@ $main-color: #CB2123
   position: fixed
   bottom: 50px
   width: 1140px
+
+.load-button
+  width: 500px
 
 .templates
   margin: 40px 0
@@ -47,4 +59,56 @@ $main-color: #CB2123
   .template_active
     border: 2px solid $main-color
 
+.table-wrapper
+  padding-right: 50px
+  border-right: solid 1px $grey
 
+.step__table
+  width: 300px
+  .step__row
+    display: flex
+    margin: 15px 0
+    justify-content: space-between
+  .step__el_key
+    color: #8b8b8b
+
+  .step__el_value
+    width: 130px
+    display: flex
+    align-items: center
+
+.step__point
+  width: 8px
+  height: 8px
+  border-radius: 50%
+  background: $main-color
+  margin-right: 8px
+
+.step__point_active
+  background: $success-color
+
+.errors-wrapper
+  margin-left: 50px
+
+.errors-list
+  margin-top: 20px
+  .error
+    display: flex
+    align-items: center
+    margin: 10px 0
+
+.errors__btns
+  display: flex
+  align-items: center
+  margin-top: 40px
+  .errors__down
+    color: #5E5E5E
+    text-decoration-line: underline
+    margin-left: 50px
+    &:hover
+      color: $main-color
+
+.error
+  color: $main-color
+  width: 400px
+  font-size: 14px

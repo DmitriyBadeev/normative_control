@@ -1,12 +1,13 @@
 import axios from 'axios';
-import {PATH, REGISTRATION_URL, TOKEN_URL, USER_DATA_URL} from "./Config";
+import * as Config from "./Config";
+
 
 export function GetUserData() {
     const config = {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     };
 
-    return axios.get(PATH+USER_DATA_URL, config)
+    return axios.get(Config.PATH + Config.USER_DATA_URL, config)
 }
 
 export function GetToken(login, password) {
@@ -17,7 +18,7 @@ export function GetToken(login, password) {
         }
     };
 
-    return  axios.get(PATH+TOKEN_URL, config)
+    return  axios.get(Config.PATH + Config.TOKEN_URL, config)
 }
 
 export function Registration(name, lastName, email, password, group, role) {
@@ -31,5 +32,25 @@ export function Registration(name, lastName, email, password, group, role) {
         Role: role
     };
 
-    return axios.post(PATH+REGISTRATION_URL, data)
+    return axios.post(Config.PATH + Config.REGISTRATION_URL, data)
+}
+
+export function UploadTempFile(file) {
+
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    const formData = new FormData();
+    formData.append("Work", file);
+
+    return axios.post(Config.PATH + Config.UPLOAD_TEMP_FILE_URL, formData, config);
+}
+
+export function GetErrors() {
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    return axios.get(Config.PATH + Config.GET_ERRORS, config);
 }

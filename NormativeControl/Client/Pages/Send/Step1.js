@@ -24,7 +24,8 @@ export default class Step1 extends React.Component{
 
                 {this.props.templates.map((temp, index) => {
                     return <div className={index + 1 === this.props.selectedTemplate? "template template_active" : "template"}
-                                onClick={() => this.selectTemplate(index + 1)}>
+                                onClick={() => this.selectTemplate(index + 1)}
+                                key={index}>
                         <div className="template__title">{temp}</div>
                         <div className="template__link"><Link to="/rules">Правила оформления</Link></div>
                     </div>
