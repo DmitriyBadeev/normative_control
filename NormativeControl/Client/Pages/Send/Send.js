@@ -31,7 +31,8 @@ class Send extends React.Component{
             file: null,
             isSuccessLoaded: false,
             errors: [],
-            isChecked: false
+            isChecked: false,
+            urlFile: ''
         };
 
         this.prevStep = this.prevStep.bind(this);
@@ -42,7 +43,12 @@ class Send extends React.Component{
         this.onDropHandler = this.onDropHandler.bind(this);
         this.successLoaded = this.successLoaded.bind(this);
         this.setErrors = this.setErrors.bind(this);
+        this.setUrlFile = this.setUrlFile.bind(this);
     }
+
+    setUrlFile(url) {
+        this.setState({urlFile: url});
+    };
 
     setErrors(errors) {
         this.setState({isChecked: true});
@@ -75,7 +81,12 @@ class Send extends React.Component{
     }
 
     onDropHandler(acceptedFile) {
-        this.setState({file: acceptedFile})
+        this.setState({file: acceptedFile});
+        this.setState({isSuccessLoaded: false});
+        this.setState({
+            errors: [],
+            isChecked: false
+        });
     }
 
     successLoaded() {
@@ -94,14 +105,21 @@ class Send extends React.Component{
                               toBunNextStep={this.toBunNextStep}
                               toAllowNextStep={this.toAllowNextStep}
                               successLoaded={this.successLoaded}
-                              isSuccessLoaded={this.state.isSuccessLoaded}/>;
+                              isSuccessLoaded={this.state.isSuccessLoaded}
+                              setUrlFile={this.setUrlFile}/>;
             case 3:
                 return <Step3 templates={this.state.templates}
                               selectedTemplate={this.state.selectedTemplate}
                               file={this.state.file}
                               globalSetErrors={this.setErrors}
                               getGlobalErrors={this.state.errors}
-                              isGlobalChecked={this.state.isChecked} />;
+                              isGlobalChecked={this.state.isChecked}
+                              urlFile={this.state.urlFile}
+                              onDropHandler={this.onDropHandler}
+                              successLoaded={this.successLoaded}
+                              setUrlFile={this.setUrlFile}
+                              toBunNextStep={this.toBunNextStep}
+                              toAllowNextStep={this.toAllowNextStep}/>;
             case 4:
                 return <Step4 templates={this.state.templates}
                               selectedTemplate={this.state.selectedTemplate}

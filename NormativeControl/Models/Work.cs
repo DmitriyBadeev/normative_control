@@ -17,6 +17,8 @@ namespace NormativeControl.Models
 
         public string Status { get; set; }
 
+        public bool IsEmailNotification { get; set; }
+
         public int StudentId { get; set; }
 
         public User Student { get; set; }

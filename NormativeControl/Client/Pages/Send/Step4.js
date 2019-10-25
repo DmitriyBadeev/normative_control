@@ -3,17 +3,31 @@ import SolidButton from "../../Components/Buttons/SolidButton";
 
 import './send.sass';
 import {Checkbox, FormControlLabel} from "@material-ui/core";
+import * as API from '../../API';
+import SuccessDialog from "../../Components/SuccessDialog/SuccessDialog";
 
 export default function ({templates, selectedTemplate, isGlobalChecked, getGlobalErrors, file}) {
 
     const [check, setCheck] = useState({isEmail: false});
+    const [isOpen, setOpen] = useState(false);
 
     const Send = () => {
-        console.log(check.isEmail);
+
+        API.SendWork(file, templates[selectedTemplate - 1], check.isEmail)
+            .then(res => {
+               setOpen(true);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    };
+
+    const onCloseDialog = () => {
+        location.replace('/status');
     };
 
     return <div className="step-wrapper">
-        <p>Отправьте работу на проверку нормконтроллеру.</p>
+        <p>Отправьте работу на проверку нормоконтролеру.</p>
 
         <div className="step__table mt-30">
             <div className="step__row">
@@ -22,7 +36,7 @@ export default function ({templates, selectedTemplate, isGlobalChecked, getGloba
             </div>
             <div className="step__row">
                 <p className="step__el step__el_key">Загружен файл:</p>
-                <p className="step__el step__el_value">doc1.docx</p>
+                <p className="step__el step__el_value">{ file.name }</p>
             </div>
             <div className="step__row">
                 <p className="step__el step__el_key">Проверка:</p>
@@ -44,11 +58,15 @@ export default function ({templates, selectedTemplate, isGlobalChecked, getGloba
 
         {
             getGlobalErrors.length !== 0 ?
-                <p className="error mt-20">Компьютер нашел у вас ошибки в оформлении работы, вы уверены, что хотите отправить работу?</p>
+                <p className="error mt-20">Компьютер нашел у вас ошибки в оформлении работы, мы рекомендуем
+                    вам исправить ошибки и загрузить работу заново.
+                    Вы уверены, что хотите отправить работу?</p>
             :
                 null
         }
 
         <SolidButton text="Отправить" size="small" className="mt-20" onClick={Send}/>
+
+        <SuccessDialog isOpen={isOpen} onClose={onCloseDialog}/>
     </div>
 }

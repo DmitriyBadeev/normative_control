@@ -54,3 +54,16 @@ export function GetErrors() {
 
     return axios.get(Config.PATH + Config.GET_ERRORS, config);
 }
+
+export function SendWork(file, template, isEmail) {
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    const formData = new FormData();
+    formData.append("File", file);
+    formData.append("Template", template);
+    formData.append("IsEmailNotification", isEmail);
+
+    return axios.post(Config.PATH + Config.SEND_WORK, formData, config)
+}

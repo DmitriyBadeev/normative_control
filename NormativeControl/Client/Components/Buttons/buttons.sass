@@ -32,6 +32,7 @@ $color-black: #1f1f1f
   height: 30px
 
 .lite-button
+  position: relative
   display: block
   border: solid 2px $main-color
   border-radius: 5px
@@ -46,3 +47,23 @@ $color-black: #1f1f1f
   &:disabled
     border-color: $main-color-disabled
     color: $color-black
+
+.lite-button_file
+  cursor: pointer
+  font-size: 13px
+  display: flex
+  justify-content: center
+  align-items: center
+  label
+    cursor: pointer
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 150px
+    height: 40px
+
+.input-file-btn
+  z-index: -1
+  position: absolute
+  &:hover
+    cursor: pointer

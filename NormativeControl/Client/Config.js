@@ -10,3 +10,5 @@ export const REGISTRATION_URL = 'registration';
 export const UPLOAD_TEMP_FILE_URL = 'upload-temp-file';
 
 export const GET_ERRORS = 'errors';
+
+export const SEND_WORK = 'send';

@@ -5,7 +5,7 @@ import './send.sass';
 import SolidButton from "../../Components/Buttons/SolidButton";
 import * as API from '../../API';
 
-export default function ({onDropHandler, selectedFile, toBunNextStep, toAllowNextStep, successLoaded, isSuccessLoaded}) {
+export default function ({onDropHandler, selectedFile, toBunNextStep, toAllowNextStep, successLoaded, isSuccessLoaded, setUrlFile}) {
 
     const [disableLoad, setDisableLoad] = useState({disable: isSuccessLoaded});
     const [isLoading, setIsLoading] = useState({isLoading: false});
@@ -23,7 +23,7 @@ export default function ({onDropHandler, selectedFile, toBunNextStep, toAllowNex
                 successLoaded();
                 setDisableLoad({disable: true});
                 setIsLoading({isLoading: false});
-                console.log(res.data);
+                setUrlFile(res.data);
             })
             .catch(error => {
                 setIsLoading({isLoading: false});
@@ -42,15 +42,19 @@ export default function ({onDropHandler, selectedFile, toBunNextStep, toAllowNex
         return "Загрузить";
     };
 
+    const onDrop = (acceptedFile) => {
+        onDropHandler(acceptedFile);
+        setDisableLoad({disable: false});
+    };
+
     return <div className="step-wrapper">
         <p>Загрузите свою работу в формате docx.</p>
 
         <div className="mt-40">
-            <Dropzone onDropHandler={onDropHandler} selectedFile={selectedFile}/>
+            <Dropzone onDropHandler={onDrop} selectedFile={selectedFile}/>
         </div>
 
-        <SolidButton size="medium"
-                     text={getTitleButton()}
+        <SolidButton text={getTitleButton()}
                      className="mt-30 load-button"
                      disable={selectedFile === null || disableLoad.disable}
                      onClick={loadFile}

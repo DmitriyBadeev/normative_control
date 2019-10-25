@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "3d650778e3500094e38cb51398f5ded5c197beae"
+    "signature": "853c686f70b37a8538dcb9fb1e5a50a2f753ed1c"
   },
   "compilationOptions": {
     "defines": [
@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.1": {
       "NormativeControl/1.0.0": {
         "dependencies": {
+          "DocumentFormat.OpenXml": "2.9.1",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.NETCore.App": "2.1.0",
@@ -34,6 +35,22 @@
         },
         "compile": {
           "NormativeControl.dll": {}
+        }
+      },
+      "DocumentFormat.OpenXml/2.9.1": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3",
+          "System.IO.Packaging": "4.5.0",
+          "System.Runtime.Serialization.Xml": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/DocumentFormat.OpenXml.dll": {
+            "assemblyVersion": "2.9.1.0",
+            "fileVersion": "2.9.1.2"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.3/DocumentFormat.OpenXml.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Design/2.1.2": {},
@@ -498,6 +515,17 @@
         },
         "compile": {
           "lib/netstandard1.0/System.Composition.TypedParts.dll": {}
+        }
+      },
+      "System.IO.Packaging/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.IO.Packaging.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        },
+        "compile": {
+          "ref/netstandard2.0/System.IO.Packaging.dll": {}
         }
       },
       "System.Linq.Parallel/4.3.0": {
@@ -3462,6 +3490,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "DocumentFormat.OpenXml/2.9.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Z3d9A++hVZfwmOme1f3npTGNFwNPjrkrsbxwfPpDo9siwMeNhwceesyk0nFQ5gamR8wT5Tp3FgVBsASTnFO0mQ==",
+      "path": "documentformat.openxml/2.9.1",
+      "hashPath": "documentformat.openxml.2.9.1.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
       "type": "package",
       "serviceable": true,
@@ -3636,6 +3671,13 @@
       "sha512": "sha512-0Zae/FtzeFgDBBuILeIbC/T9HMYbW4olAmi8XqqAGosSOWvXfiQLfARZEhiGd0LVXaYgXr0NhxiU1LldRP1fpQ==",
       "path": "system.composition.typedparts/1.0.31",
       "hashPath": "system.composition.typedparts.1.0.31.nupkg.sha512"
+    },
+    "System.IO.Packaging/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OjtW5pGp1E7KE3ontBrzy+nSFJCM6pcbVDdo3gg4DauTfdtZKdeKvMVlADF4fSY+OfXWUp4qCvOSxIltt37LbA==",
+      "path": "system.io.packaging/4.5.0",
+      "hashPath": "system.io.packaging.4.5.0.nupkg.sha512"
     },
     "System.Linq.Parallel/4.3.0": {
       "type": "package",

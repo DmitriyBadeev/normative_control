@@ -66,6 +66,8 @@ namespace NormativeControl.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsEmailNotification");
+
                     b.Property<string>("NameFile");
 
                     b.Property<string>("Path");

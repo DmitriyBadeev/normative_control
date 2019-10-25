@@ -1,21 +1,60 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SolidButton from "../../Components/Buttons/SolidButton";
-import LiteButton from "../../Components/Buttons/LiteButton";
 import './send.sass';
 import * as API from "../../API";
+import Loading from '@material-ui/core/CircularProgress';
+import FileButton from "../../Components/Buttons/FileButton";
 
-export default function ({templates, selectedTemplate, file, globalSetErrors, getGlobalErrors, isGlobalChecked}) {
-    //console.log(file.name);
+export default function ({templates, selectedTemplate, file, globalSetErrors,
+                         getGlobalErrors, isGlobalChecked, urlFile, onDropHandler,
+                         successLoaded, setUrlFile, toBunNextStep, toAllowNextStep}) {
 
     const [check, setCheck] = useState({isCheck: isGlobalChecked});
     const [errors, setErrors] = useState({errors: getGlobalErrors});
+    const [loading, setLoading] = useState({isLoading: false});
+
+    useEffect(() => {
+        if(!check.isCheck)
+            toBunNextStep();
+    }, []);
 
     const toCheck = () => {
-        setCheck({isCheck: true});
+        setLoading({isLoading: true});
         API.GetErrors()
             .then(res => {
+                setLoading({isLoading: false});
+                setCheck({isCheck: true});
                 setErrors({errors: res.data});
                 globalSetErrors(res.data);
+                toAllowNextStep();
+            })
+            .catch(error => {
+                setLoading({isLoading: false});
+                console.log(error);
+            })
+    };
+
+    const getTextTitle = () => {
+        if (check.isCheck)
+            return "Ошибки";
+
+        if (loading.isLoading)
+            return null;
+
+        return "Пройдите проверку"
+    };
+
+    const reLoadFile = (e) => {
+        const file = e.target.files[0];
+        onDropHandler(file);
+
+        API.UploadTempFile(file)
+            .then(res => {
+                successLoaded();
+                setUrlFile(res.data);
+                setCheck({isCheck: false});
+                setErrors({errors: []});
+                toBunNextStep();
             })
             .catch(error => {
                 console.log(error);
@@ -33,7 +72,7 @@ export default function ({templates, selectedTemplate, file, globalSetErrors, ge
                     </div>
                     <div className="step__row">
                         <p className="step__el step__el_key">Загружен файл:</p>
-                        <p className="step__el step__el_value">doc1.docx</p>
+                        <p className="step__el step__el_value">{file.name}</p>
                     </div>
                     <div className="step__row">
                         <p className="step__el step__el_key">Проверка:</p>
@@ -45,7 +84,7 @@ export default function ({templates, selectedTemplate, file, globalSetErrors, ge
                 <SolidButton text="Проверка" size="small" className="mt-30" onClick={toCheck}/>
             </div>
             <div className="errors-wrapper mt-30">
-                <h4 className="mt-15">{check.isCheck? "Ошибки" : "Пройдите проверку"}</h4>
+                <h4 className="mt-15">{getTextTitle()}</h4>
 
                 {check.isCheck?
                     <React.Fragment>
@@ -63,12 +102,13 @@ export default function ({templates, selectedTemplate, file, globalSetErrors, ge
                         </div>
 
                         <div className="errors__btns">
-                            <LiteButton text="Сдать еще раз" size="medium"/>
-                            <a href="#" className="errors__down">Скачать свою работу</a>
+                            <FileButton text="Сдать еще раз" onChange={reLoadFile}/>
+                            <a href={urlFile} target="_blank" className="errors__down">Скачать свою работу <br />
+                            c подробными комментариями</a>
                         </div>
                     </React.Fragment>
                     :
-                    null
+                    loading.isLoading ? <div className="step-loading-wrapper"><Loading color="secondary"/></div> : null
                 }
             </div>
         </div>
