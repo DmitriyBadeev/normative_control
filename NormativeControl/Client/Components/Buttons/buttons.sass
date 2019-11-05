@@ -6,6 +6,9 @@ $main-color-disabled: #E18385
 $main-color-hover: #cb2123
 $color-black: #1f1f1f
 
+label
+  cursor: pointer
+
 .solid-button
   display: block
   border: none
@@ -29,6 +32,10 @@ $color-black: #1f1f1f
 
 .small
   width: 120px
+  height: 30px
+
+.long
+  width: 175px
   height: 30px
 
 .lite-button
@@ -67,3 +74,33 @@ $color-black: #1f1f1f
   position: absolute
   &:hover
     cursor: pointer
+
+.icon-button
+  display: inline-flex
+  cursor: pointer
+  background: none
+  border: none
+  &__icon
+    margin-right: 7px
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 30px
+    height: 30px
+    background: $main-color
+    color: white
+    font-size: 12px
+    border-radius: 50%
+  &__text
+    transition: all 0.2s
+    display: flex
+    align-items: center
+    font-size: 14px
+    padding: 0 15px 0 30px
+    margin-left: -30px
+    height: 30px
+    border-radius: 30px
+
+    &:hover
+      background: rgba(0, 0, 0, 0.05)
+

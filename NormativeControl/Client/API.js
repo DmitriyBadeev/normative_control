@@ -67,3 +67,61 @@ export function SendWork(file, template, isEmail) {
 
     return axios.post(Config.PATH + Config.SEND_WORK, formData, config)
 }
+
+export function GetWorks() {
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    return axios.get(Config.PATH + Config.GET_WORKS, config);
+}
+
+export function DeleteWork(id) {
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        params: {
+            "idWork": id
+        }
+    };
+
+    return axios.delete(Config.PATH + Config.DELETE_WORK, config)
+}
+
+export function GetAllWorks() {
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    return axios.get(Config.PATH + Config.GET_ALL_WORKS, config);
+}
+
+export function PutErrors(workId, errors) {
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    const data = {
+        errors,
+        workId
+    };
+
+    return axios.put(Config.PATH + Config.PUT_ERRORS, data, config)
+}
+
+export function UploadFile(file, workId, status) {
+    const config = {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    };
+
+    const formData = new FormData();
+    formData.append("File", file);
+    formData.append("WorkId", workId);
+    formData.append("Status", status);
+
+    return axios.post(Config.PATH + Config.UPLOAD_WORK_FILE, formData, config);
+}
+
+
+
+
+

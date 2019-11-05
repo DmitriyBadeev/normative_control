@@ -1,0 +1,66 @@
+
+$grey: #8b8b8b
+$main-color: #CB2123
+$success-color: #21C931
+
+.check-group
+  margin-top: 40px
+
+  &__title
+    font-size: 18px
+
+  &__name-group_grey
+    color: #696969
+
+  &__name-group
+    font-weight: 600
+
+.check-work_check
+  border: solid 1px $main-color
+
+.check-work_pending
+  border: solid 1px rgba(139,139,139, .3)
+  opacity: .7
+
+.check-work
+  display: flex
+  justify-content: space-between
+  padding: 30px 50px
+  border-radius: 5px
+  margin-top: 30px
+  &__left
+    .check-work__dateAndTemplate
+      font-size: 14px
+      .check-work__date
+        color: $grey
+
+    .check-work__name
+      font-size: 20px
+      margin: 20px 0
+
+    .check-work__downAndUpBtn
+      .check-work__downloadBtn
+        margin-right: 20px
+
+  &__right
+    .check-work__main-btn
+      display: flex
+      margin-top: 5px
+      .check-work__reject-btn
+        margin-right: 50px
+      .check-work__accept-btn
+        background: $success-color
+        &:hover
+          background: #25bf32
+        &:disabled
+          background: #a3c98f
+
+
+    .check-work__errors
+      margin-top: 40px
+      .check-work__input
+        margin-right: 20px
+        width: 250px
+
+    .check-work__errorList
+      margin-top: 30px

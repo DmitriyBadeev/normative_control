@@ -17,7 +17,8 @@ class Header extends React.Component {
             isAuth: false,
             name: '',
             lastName: '',
-            role: ''
+            role: '',
+            key: ''
         };
 
         this.exit = this.exit.bind(this);
@@ -27,6 +28,7 @@ class Header extends React.Component {
         const key = localStorage.getItem('token');
 
         if (key) {
+            this.setState({key: key});
             API.GetUserData()
                 .then(res => {
                     this.setState({
@@ -49,6 +51,24 @@ class Header extends React.Component {
         location.replace('/');
     }
 
+    getLinksDependsOnRole(currentUrl) {
+        if (this.state.role === 'Студент' || this.state.role === '') {
+            return <nav className="nav">
+                <Link className={`nav__link ${currentUrl === '/'? 'active':''}`} to='/'>Главная</Link>
+                <Link className={`nav__link ${currentUrl === '/rules'? 'active':''}`} to='/rules'>Правила оформления</Link>
+                <Link className={`nav__link ${currentUrl === '/send'? 'active':''}`} to='/send'>Отправить работу</Link>
+                <Link className={`nav__link ${currentUrl === '/status'? 'active':''}`} to='/status'>Статус проверки работы</Link>
+            </nav>
+        }
+
+        if (this.state.role === 'Нормоконтролер') {
+            return <nav className="nav">
+                <Link className={`nav__link ${currentUrl === '/normcontrol'? 'active':''}`} to='/normcontrol'>Главная</Link>
+                <Link className={`nav__link ${currentUrl === '/normcontrol/check'? 'active':''}`} to='/normcontrol/check'>Проверка студенческих работ</Link>
+            </nav>
+        }
+    }
+
     render() {
         const currentUrl = window.location.pathname;
 
@@ -64,12 +84,8 @@ class Header extends React.Component {
                     </div>
                 </div>
 
-                <nav className="nav">
-                    <Link className={`nav__link ${currentUrl === '/'? 'active':''}`} to='/'>Главная</Link>
-                    <Link className={`nav__link ${currentUrl === '/rules'? 'active':''}`} to='/rules'>Правила оформления</Link>
-                    <Link className={`nav__link ${currentUrl === '/send/1-1'? 'active':''}`} to='/send/1-1'>Отправить работу</Link>
-                    <Link className={`nav__link ${currentUrl === '/status'? 'active':''}`} to='/status'>Статус проверки работы</Link>
-                </nav>
+                {this.getLinksDependsOnRole(currentUrl)}
+
             </div>
             <div className="user-wrapper">
                 {!this.state.isAuth?

@@ -18,12 +18,12 @@ class Send extends React.Component{
         super(props);
 
         this.state = {
-            activeStep: +this.props.match.params.step,
+            activeStep: 1,
             isBunNextStep: false,
             steps: [
                 'Выбор шаблона', 'Загрузка работы', 'Проверка', 'Отправка'
             ],
-            selectedTemplate: +this.props.match.params.template,
+            selectedTemplate: 1,
             templates: [
                 'Курсовой отчет',
                 'Дипломная работа'

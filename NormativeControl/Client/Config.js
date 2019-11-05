@@ -12,3 +12,25 @@ export const UPLOAD_TEMP_FILE_URL = 'upload-temp-file';
 export const GET_ERRORS = 'errors';
 
 export const SEND_WORK = 'send';
+
+export const GET_WORKS = 'works';
+
+export const DELETE_WORK = 'work';
+
+export const GET_ALL_WORKS = 'all-works';
+
+export const PUT_ERRORS = 'put-error';
+
+export const UPLOAD_WORK_FILE = 'upload-file-work';
+
+export const STATUS = {
+    CHECK: "Проверка нормоконтролером",
+    PENDING_CORRECTION: "Ожидание исправления",
+    PENDING_RECHECK: "Ожидание перепроверки",
+    ACCEPTED: "Работа принята"
+};
+
+export const ROLE = {
+    STUDENT: "Студент",
+    NORMCONTROL: "Нормоконтролер"
+};

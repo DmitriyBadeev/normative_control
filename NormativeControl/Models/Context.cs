@@ -11,11 +11,16 @@ namespace NormativeControl.Models
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Work> Works { get; set; }
+
+        public DbSet<Error> Errors { get; set; }
+
+
         public Context(DbContextOptions<Context> options)
             : base(options)
         {
         }
 
-        public DbSet<NormativeControl.Models.Work> Work { get; set; }
+       
     }
 }

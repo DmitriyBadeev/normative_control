@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NormativeControl.Models;
 using NormativeControl.CheckDocuments;
+using NormativeControl.Config;
 using Document = NormativeControl.CheckDocuments.Document;
 using Error = NormativeControl.CheckDocuments.Error;
 
@@ -27,39 +28,7 @@ namespace NormativeControl.Controllers
         {
             _context = context;
             _appEnvironment = appEnvironment;
-        }
-        
-        [Authorize]
-        [HttpPost("/api/upload-temp-file")]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UploadTempFile([FromForm] FormFile work)
-        {
-            var uploadFile = work.Work;
-
-            if (uploadFile != null)
-            {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
-
-                var fileName = "tempFile.docx";
-                var fullPath = $"{_appEnvironment.ContentRootPath}/StaticWords/{user.Id}/temp/{fileName}";
-                var path = $"{_appEnvironment.ContentRootPath}/StaticWords/{user.Id}/temp";
-                
-                var dirInfo = new DirectoryInfo(path);
-
-                if (!dirInfo.Exists)
-                    dirInfo.Create();
-
-                using (var fileStream = new FileStream(fullPath, 
-                    FileMode.Create, FileAccess.ReadWrite))
-                {
-                    await uploadFile.CopyToAsync(fileStream);
-                }
-
-                return Ok($"StaticWords/{user.Id}/temp/{fileName}");
-            }
-
-            return StatusCode(400);
-        }
+        }     
 
         [Authorize]
         [HttpGet("/api/errors")]
@@ -89,10 +58,51 @@ namespace NormativeControl.Controllers
 
             return errorsInString;
         }
+
+        [Authorize]
+        [HttpPut("/api/put-error")]
+        public async Task<IActionResult> PutErrorToWork([FromBody] putErrorsData data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!User.IsInRole(Role.NORMCONTROL))
+            {
+                return StatusCode(403);
+            }
+
+            var work = await _context.Works.FindAsync(data.workId);
+            work.Status = Status.PENDING_CORRECTION;
+
+            foreach (var error in _context.Errors)
+            {
+                if (error.WorkId == data.workId)
+                    _context.Remove(error);
+            }
+
+            foreach (var errorDesc in data.errors)
+            {
+                var error = new Models.Error()
+                {
+                    Description = errorDesc,
+                    NumberElement = 0,
+                    WorkId = data.workId,
+                    Work = work
+                };
+
+                await _context.Errors.AddAsync(error);
+            }
+            
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 
-     public class FormFile
+    public class putErrorsData
     {
-        public IFormFile Work { get; set; }
+        public List<string> errors { get; set; }
+        public int workId { get; set; }
     }
 }

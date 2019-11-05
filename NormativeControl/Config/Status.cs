@@ -9,7 +9,9 @@ namespace NormativeControl.Config
     {
         public static readonly string CHECK = "Проверка нормоконтролером";
 
-        public static readonly string RECHECK = "Проверка нормоконтролером (Отправленна на перепроверку)";
+        public static readonly string PENDING_CORRECTION = "Ожидание исправления";
+
+        public static readonly string PENDING_RECHECK = "Ожидание перепроверки";
 
         public static readonly string ACCEPTED = "Работа принята";
     }

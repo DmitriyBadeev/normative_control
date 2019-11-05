@@ -4,6 +4,7 @@ import './send.sass';
 import * as API from "../../API";
 import Loading from '@material-ui/core/CircularProgress';
 import FileButton from "../../Components/Buttons/FileButton";
+import ErrorList from "../../Components/ErrorList/ErrorList";
 
 export default function ({templates, selectedTemplate, file, globalSetErrors,
                          getGlobalErrors, isGlobalChecked, urlFile, onDropHandler,
@@ -88,22 +89,18 @@ export default function ({templates, selectedTemplate, file, globalSetErrors,
 
                 {check.isCheck?
                     <React.Fragment>
-                        <div className="errors-list">
+
 
                             {errors.errors.length === 0?
-                                "Ошибок не найдено"
+                                <p className="mt-20">Ошибок не найдено</p>
                                 :
-                                errors.errors.map((error, index) => {
-                                    return <div className="error" key={index}>
-                                        <div className="step__point" /> {error}
-                                    </div>
-                            })}
+                                <ErrorList errorList={errors.errors} className="mt-20"/>
+                            }
 
-                        </div>
 
                         <div className="errors__btns">
                             <FileButton text="Сдать еще раз" onChange={reLoadFile}/>
-                            <a href={urlFile} target="_blank" className="errors__down">Скачать свою работу <br />
+                            <a href={urlFile} target="_blank" className="errors__down under-link">Скачать свою работу <br />
                             c подробными комментариями</a>
                         </div>
                     </React.Fragment>

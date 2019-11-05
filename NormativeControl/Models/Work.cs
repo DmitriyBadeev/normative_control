@@ -23,6 +23,8 @@ namespace NormativeControl.Models
 
         public User Student { get; set; }
 
+        public DateTime DateSend { get; set; }
+
         public IEnumerable<Error> Errors { get; set; }
     }
 }

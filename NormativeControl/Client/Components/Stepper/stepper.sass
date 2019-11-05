@@ -44,3 +44,53 @@ $title-color: #1f1f1f
       transition: all 0.4s
       color: $success-color
       border: solid 2px $success-color
+
+.small-stepper
+  display: flex
+  .step
+    display: flex
+    flex-direction: column
+    align-items: center
+    opacity: 0.3
+    transition: all 0.4s
+    &__num
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 25px
+      height: 25px
+      border-radius: 50%
+      border: 2px solid black
+      font-size: 12px
+      font-weight: 600
+    &__title
+      color: $title-color
+      font-weight: 400
+      font-size: 13px
+      text-align: center
+      margin-top: 15px
+    &__line
+      background: black
+      opacity: 0.2
+      width: 60px
+      height: 1px
+      margin: 12px 0 0
+
+
+  .step_active
+    opacity: 1
+    .step__num
+      transition: all 0.4s
+      color: $main-color
+      border: solid 2px $main-color
+
+  .step_success
+    opacity: 1
+    .step__num
+      transition: all 0.4s
+      color: $success-color
+      border: solid 2px $success-color
+
+.recheck
+  font-size: 11px
+  color: #6A6A6A

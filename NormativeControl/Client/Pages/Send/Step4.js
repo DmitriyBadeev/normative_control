@@ -58,7 +58,7 @@ export default function ({templates, selectedTemplate, isGlobalChecked, getGloba
 
         {
             getGlobalErrors.length !== 0 ?
-                <p className="error mt-20">Компьютер нашел у вас ошибки в оформлении работы, мы рекомендуем
+                <p className="step4-error mt-20">Компьютер нашел у вас ошибки в оформлении работы, мы рекомендуем
                     вам исправить ошибки и загрузить работу заново.
                     Вы уверены, что хотите отправить работу?</p>
             :
