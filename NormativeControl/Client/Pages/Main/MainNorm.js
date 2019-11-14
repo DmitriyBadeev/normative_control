@@ -3,16 +3,7 @@ import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import statusIcon from "../../img/checklist.svg";
 
-function MainNorm(props) {
-
-    useEffect(() => {
-        const key = localStorage.getItem('token');
-
-        if (props.userData.role === "Студент" || !key){
-            location.replace('/');
-        }
-
-    }, [props]);
+function MainNorm() {
 
     return <main>
         <h1>Сервисы нормоконтролера</h1>

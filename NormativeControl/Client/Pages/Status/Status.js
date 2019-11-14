@@ -51,31 +51,20 @@ export default function Status() {
 
         API.UploadFile(file, workId, Config.STATUS.PENDING_RECHECK)
             .then(res => {
-                alert("Работа успешно отправлена на перепроверку")
+                alert("Работа успешно отправлена на перепроверку");
+                location.reload();
             })
             .catch(error => {
                 console.log(error);
             })
     };
 
-    const steps = [
-        <div className="step__title">Проверка <br/> компьютером</div>,
-        <div className="step__title">Проверка <br/> нормоконтролером</div>,
-        <div className="step__title">Работа принята</div>
-    ];
-
-    const stepsRecheck = [
-        <div className="step__title">Проверка <br/> компьютером</div>,
-        <div className="step__title">Проверка <br/> нормоконтроллером <br/> <span className="recheck">(Отправлена на перепроверку)</span></div>,
-        <div className="step__title">Работа принята</div>
-    ];
-
     const getSteps = (status) => {
-
-        if (status === Config.STATUS.PENDING_RECHECK)
-            return stepsRecheck;
-
-        return steps;
+        return [
+            <div className="step__title">Проверка <br/> компьютером</div>,
+            <div className="step__title step__title_status">{status}</div>,
+            <div className="step__title">Работа принята</div>,
+        ]
     };
 
     const getActiveStep = (status) => {
@@ -105,7 +94,7 @@ export default function Status() {
 
                     works.map((work, index) => {
                         return (
-                            <div className="status-wrapper" key={index}>
+                            <div className={`status-wrapper ${work.status === Config.STATUS.PENDING_CORRECTION && 'status_important'}`} key={index}>
                                 <div className="stepper-wrapper">
                                     <div className="status__template-wrapper">
                                         <p className="status__date">{getDate(work)}</p>
@@ -118,7 +107,7 @@ export default function Status() {
                                 </div>
 
                                 {
-                                    work.errors.length !== 0 &&
+                                    work.status === Config.STATUS.PENDING_CORRECTION &&
                                         <div className={`errors-wrapper ${work.status === Config.STATUS.PENDING_RECHECK && "errors-wrapper_hidden"}`}>
                                             <div className="d-flex">
                                                 <div className="remarks">

@@ -104,7 +104,7 @@ namespace NormativeControl.Controllers
                 result.Add(dataWork);
             }
 
-            return Ok(result);
+            return Ok(result.OrderByDescending(w => w.Status == Status.PENDING_CORRECTION));
         }
 
         [Authorize]
@@ -140,8 +140,6 @@ namespace NormativeControl.Controllers
                     Template = work.Template,
                     Date = work.DateSend
                 };
-
-                
 
                 if (!allWorks.ContainsKey(student.Group))
                 {
@@ -202,6 +200,8 @@ namespace NormativeControl.Controllers
             if (workData.Status == Status.PENDING_RECHECK)
                 work.Status = Status.PENDING_RECHECK;
 
+            work.DateSend = DateTime.Now;
+
             await _context.SaveChangesAsync();
 
             return Ok();
@@ -237,6 +237,28 @@ namespace NormativeControl.Controllers
             }
 
             return StatusCode(400);
+        }
+
+        [Authorize]
+        [HttpPost("/api/accept-work/{idWork}")]
+        public async Task<IActionResult> AcceptWork([FromRoute] int idWork)
+        {
+            if (!User.IsInRole(Role.NORMCONTROL))
+            {
+                return StatusCode(403);
+            }
+
+            var work = await _context.Works.FindAsync(idWork);
+
+            var errors = _context.Errors.Where(e => e.WorkId == idWork);
+            _context.Errors.RemoveRange(errors);
+
+            work.Status = Status.ACCEPTED;
+            work.DateSend = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
     }
 

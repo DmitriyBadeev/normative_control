@@ -22,6 +22,9 @@ $success-color: #21C931
   border: solid 1px rgba(139,139,139, .3)
   opacity: .7
 
+.check-work_accept
+  border: solid 1px $success-color
+
 .check-work
   display: flex
   justify-content: space-between
@@ -33,6 +36,23 @@ $success-color: #21C931
       font-size: 14px
       .check-work__date
         color: $grey
+      .check-work__status
+        font-size: 13px
+        display: inline-block
+        margin-left: 5px
+        padding: 4px 6px
+        background: #ff894f
+        color: white
+        border-radius: 10px
+
+      .check-work__status_accepted
+        font-size: 13px
+        display: inline-block
+        margin-left: 5px
+        padding: 4px 6px
+        background: $success-color
+        color: white
+        border-radius: 10px
 
     .check-work__name
       font-size: 20px

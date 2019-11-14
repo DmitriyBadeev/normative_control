@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NormativeControl.Config;
 using NormativeControl.Models;
 
 namespace NormativeControl.Controllers
@@ -36,6 +37,9 @@ namespace NormativeControl.Controllers
             if (user == null)
                 return StatusCode(404);
 
+            var works = _context.Works.Where(w => w.StudentId == user.Id);
+            var hasImportantWorks = works.Any(w => w.Status == Status.PENDING_CORRECTION);
+
             var userInfo = new
             {
                 id = user.Id,
@@ -43,7 +47,8 @@ namespace NormativeControl.Controllers
                 name = user.Name,
                 lastName = user.LastName,
                 group = user.Group,
-                role = user.Role
+                role = user.Role,
+                hasImportantWorks
             };
 
             return Ok(userInfo);

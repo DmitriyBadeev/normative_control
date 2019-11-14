@@ -23,6 +23,8 @@ export const PUT_ERRORS = 'put-error';
 
 export const UPLOAD_WORK_FILE = 'upload-file-work';
 
+export const ACCEPT_WORK = (id) => `accept-work/${id}`;
+
 export const STATUS = {
     CHECK: "Проверка нормоконтролером",
     PENDING_CORRECTION: "Ожидание исправления",

@@ -2,12 +2,13 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
-
+import * as Config from '../../Config';
 import * as API from "../../API";
 
 import logo from '../../img/logo.png';
 import './header.sass'
-import {authSuccess} from "../../Store/Auth/actions";
+import {authFail, authSuccess} from "../../Store/Auth/actions";
+import Loading from "../Loading/Loading";
 
 class Header extends React.Component {
     constructor(props) {
@@ -26,23 +27,36 @@ class Header extends React.Component {
 
     componentWillMount() {
         const key = localStorage.getItem('token');
-
         if (key) {
             this.setState({key: key});
             API.GetUserData()
                 .then(res => {
-                    this.setState({
-                        isAuth: true,
-                        name: res.data.name,
-                        lastName: res.data.lastName,
-                        role: res.data.role
-                    });
-                    this.props.AuthSuccess(res.data);
+
+                    if (res.data.role === Config.ROLE.NORMCONTROL && location.pathname === '/')
+                        location.replace('/normcontrol');
+
+                    else if (res.data.role === Config.ROLE.STUDENT && location.pathname === '/normcontrol')
+                        location.replace('/');
+
+                    else {
+                        this.setState({
+                            isAuth: true,
+                            name: res.data.name,
+                            lastName: res.data.lastName,
+                            role: res.data.role
+                        });
+                        this.props.AuthSuccess(res.data);
+                    }
                 })
                 .catch(error => {
                     localStorage.removeItem('token');
                     location.replace('/sign-in');
                 })
+        } else {
+            if(location.pathname === '/normcontrol')
+                location.replace('/');
+
+            this.props.AuthFail();
         }
     }
 
@@ -54,10 +68,11 @@ class Header extends React.Component {
     getLinksDependsOnRole(currentUrl) {
         if (this.state.role === 'Студент' || this.state.role === '') {
             return <nav className="nav">
-                <Link className={`nav__link ${currentUrl === '/'? 'active':''}`} to='/'>Главная</Link>
-                <Link className={`nav__link ${currentUrl === '/rules'? 'active':''}`} to='/rules'>Правила оформления</Link>
-                <Link className={`nav__link ${currentUrl === '/send'? 'active':''}`} to='/send'>Отправить работу</Link>
-                <Link className={`nav__link ${currentUrl === '/status'? 'active':''}`} to='/status'>Статус проверки работы</Link>
+                <Link className={`nav__link ${currentUrl === '/' && 'active'}`} to='/'>Главная</Link>
+                <Link className={`nav__link ${currentUrl === '/rules' && 'active'}`} to='/rules'>Правила оформления</Link>
+                <Link className={`nav__link ${currentUrl === '/send' && 'active'}`} to='/send'>Отправить работу</Link>
+                <Link className={`nav__link ${currentUrl === '/status' && 'active'} ${this.props.userData.hasImportantWorks && 'nav__link_important'}`}
+                      to='/status'>Статус проверки работы</Link>
             </nav>
         }
 
@@ -71,6 +86,11 @@ class Header extends React.Component {
 
     render() {
         const currentUrl = window.location.pathname;
+
+        if (this.props.isLoading)
+            return <div className="preloader">
+                <Loading />
+            </div>;
 
         return <header className="header">
             <div className="menu-wrapper">
@@ -116,12 +136,16 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        isLoading: state.AuthReducer.isLoading,
+        userData: state.AuthReducer.userData
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        AuthSuccess: (userData) => dispatch(authSuccess(userData))
+        AuthSuccess: (userData) => dispatch(authSuccess(userData)),
+        AuthFail: () => dispatch(authFail())
     }
 };
 

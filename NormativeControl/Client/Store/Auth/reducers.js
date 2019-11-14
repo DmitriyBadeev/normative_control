@@ -1,7 +1,8 @@
-import { AUTHORIZATION_SUCCESS } from './actions'
+import { AUTHORIZATION_SUCCESS, AUTHORIZATION_FAIL } from './actions'
 
 const initState = {
     isAuth: false,
+    isLoading: true,
     userData: {}
 };
 
@@ -12,8 +13,14 @@ export default function AuthReducer(state = initState, action) {
             return {
                 ...state,
                 isAuth: true,
+                isLoading: false,
                 userData: action.payload
             };
+        case AUTHORIZATION_FAIL:
+            return  {
+                ...state,
+                isLoading: false
+            }
     }
 
     return state;

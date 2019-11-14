@@ -75,6 +75,7 @@ namespace NormativeControl.Controllers
 
             var work = await _context.Works.FindAsync(data.workId);
             work.Status = Status.PENDING_CORRECTION;
+            work.DateSend = DateTime.Now;
 
             foreach (var error in _context.Errors)
             {

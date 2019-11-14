@@ -11,7 +11,7 @@ export default function CheckWork(props) {
     const [errors, setErrors] = useState(props.errorList);
     const [input, setInput] = useState('');
     const [uploadFile, setUploadFile] = useState();
-    const [disable, setDisable] = useState(props.status === Config.STATUS.PENDING_CORRECTION);
+    const [disable, setDisable] = useState(props.status === Config.STATUS.PENDING_CORRECTION || props.status === Config.STATUS.ACCEPTED);
 
     const addError = (e) => {
         e.preventDefault();
@@ -33,7 +33,10 @@ export default function CheckWork(props) {
     const putErrors = (e) => {
         const workId = props.id;
         const errorPromise = API.PutErrors(workId, errors);
-        const filePromise = API.UploadFile(uploadFile, workId, Config.STATUS.PENDING_CORRECTION);
+
+        const filePromise = uploadFile != null ?
+            API.UploadFile(uploadFile, workId, Config.STATUS.PENDING_CORRECTION) :
+            Promise.resolve();
 
         Promise.all([errorPromise, filePromise])
             .then(res => {
@@ -45,12 +48,26 @@ export default function CheckWork(props) {
             });
     };
 
+    const acceptWork = (e) => {
+
+        API.AcceptWork(props.id)
+            .then(res => {
+                location.reload();
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    };
+
     const getStatusClasses = () => {
         if (props.status === Config.STATUS.CHECK || props.status === Config.STATUS.PENDING_RECHECK)
             return 'check-work_check';
 
         if (props.status === Config.STATUS.PENDING_CORRECTION)
             return 'check-work_pending';
+
+        if (props.status === Config.STATUS.ACCEPTED)
+            return 'check-work_accept';
     };
 
     const handleDownloadWork = (e) => {
@@ -70,6 +87,7 @@ export default function CheckWork(props) {
             <div className="check-work__dateAndTemplate">
                 <span className="check-work__date">{props.date} </span>
                 <span className="check-work__template">{props.template}</span>
+                <span className={`check-work__status${props.status === Config.STATUS.ACCEPTED ? '_accepted' : ''}`}> {props.status}</span>
             </div>
             <div className="check-work__name">
                 {props.name}
@@ -80,14 +98,12 @@ export default function CheckWork(props) {
                 <IconButtonNamed text="Загрузить работу" icon="upload" className="check-work__uploadBtn"
                                  disable={disable} onClick={handleUploadWork} isFile={true} id={props.id}/>
             </div>
-            {disable && <h3 className="mt-40">{props.status}</h3>}
-            {props.status === Config.STATUS.PENDING_RECHECK && <h3 className="mt-40">Перепроверка</h3>}
             {uploadFile && <h3 className="mt-40">Загружен файл: {uploadFile.name}</h3>}
         </div>
         <div className="check-work__right">
             <div className="check-work__main-btn">
                 <SolidButton disable={disable} text="Отправить на доработку" size="long" className="check-work__reject-btn" onClick={putErrors}/>
-                <SolidButton disable={disable} text="Принять работу" size="long" className="check-work__accept-btn"/>
+                <SolidButton disable={disable} text="Принять работу" size="long" className="check-work__accept-btn" onClick={acceptWork}/>
             </div>
 
             <form className="check-work__errors" onSubmit={addError}>

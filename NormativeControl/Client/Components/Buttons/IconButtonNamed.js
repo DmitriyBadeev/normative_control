@@ -7,7 +7,7 @@ import './buttons.sass';
 export default function IconButtonNamed({text, icon, className, disable, onClick, isFile, id}) {
 
     if (isFile)
-        return <div className={`icon-button ${className}`}>
+        return <div className={`icon-button ${className} ${disable && 'icon-button__disable'}`}>
             <div className="icon-button__icon"><FontAwesomeIcon icon={icon} /></div>
             <label htmlFor={id} className="icon-button__text">{text}</label>
             <input id={id} accept=".docx" type='file' className="opacity-0 input-file-btn" disabled={disable} onChange={onClick}/>

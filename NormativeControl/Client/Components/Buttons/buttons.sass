@@ -80,6 +80,7 @@ label
   cursor: pointer
   background: none
   border: none
+
   &__icon
     margin-right: 7px
     display: flex
@@ -91,6 +92,7 @@ label
     color: white
     font-size: 12px
     border-radius: 50%
+
   &__text
     transition: all 0.2s
     display: flex
@@ -104,3 +106,10 @@ label
     &:hover
       background: rgba(0, 0, 0, 0.05)
 
+  &:disabled
+    .icon-button__icon
+      background: $main-color-disabled
+
+.icon-button__disable
+  .icon-button__icon
+    background: $main-color-disabled

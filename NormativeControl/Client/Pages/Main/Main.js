@@ -8,16 +8,7 @@ import statusIcon from '../../img/checklist.svg'
 import {connect} from "react-redux";
 
 
-function Main(props) {
-
-    useEffect(() => {
-
-        if (props.userData.role === "Нормоконтролер"){
-            location.replace('/normcontrol');
-        }
-
-    }, [props]);
-
+function Main() {
 
     return <main>
         <h1>Сервисы</h1>
