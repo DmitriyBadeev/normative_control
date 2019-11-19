@@ -21,7 +21,9 @@ export default function ({templates, selectedTemplate, file, globalSetErrors,
 
     const toCheck = () => {
         setLoading({isLoading: true});
-        API.GetErrors()
+        const currentTemplateId = templates[selectedTemplate - 1].id;
+
+        API.GetErrors(currentTemplateId)
             .then(res => {
                 setLoading({isLoading: false});
                 setCheck({isCheck: true});
@@ -69,7 +71,7 @@ export default function ({templates, selectedTemplate, file, globalSetErrors,
                 <div className="step__table">
                     <div className="step__row">
                         <p className="step__el step__el_key">Выбран шаблон:</p>
-                        <p className="step__el step__el_value">{templates[selectedTemplate - 1]}</p>
+                        <p className="step__el step__el_value">{templates[selectedTemplate - 1].name}</p>
                     </div>
                     <div className="step__row">
                         <p className="step__el step__el_key">Загружен файл:</p>

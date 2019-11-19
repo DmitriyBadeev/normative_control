@@ -51,6 +51,8 @@ namespace NormativeControl.Controllers
                 await uploadFile.CopyToAsync(fileStream);
             }
 
+            var template = await _context.Templates.FindAsync(work.TemplateId);
+
             var newWork = new Work()
             {
                 NameFile = fileName,
@@ -58,7 +60,8 @@ namespace NormativeControl.Controllers
                 Student = user,
                 StudentId = user.Id,
                 IsEmailNotification = work.IsEmailNotification,
-                Template = work.Template,
+                TemplateId = work.TemplateId,
+                Template = template.Name,
                 DateSend = DateTime.Now,
                 Status = Status.CHECK 
             };
@@ -104,7 +107,7 @@ namespace NormativeControl.Controllers
                 result.Add(dataWork);
             }
 
-            return Ok(result.OrderByDescending(w => w.Status == Status.PENDING_CORRECTION));
+            return Ok(result.OrderByDescending(w => w.Status == Status.PENDING_CORRECTION).ThenByDescending(w => w.Date));
         }
 
         [Authorize]
@@ -266,7 +269,7 @@ namespace NormativeControl.Controllers
     {
         public IFormFile File { get; set; }
 
-        public string Template { get; set; }
+        public int TemplateId { get; set; }
 
         public bool IsEmailNotification { get; set; }
     }

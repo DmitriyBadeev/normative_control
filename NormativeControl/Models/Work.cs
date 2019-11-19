@@ -11,6 +11,8 @@ namespace NormativeControl.Models
 
         public string NameFile { get; set; }
 
+        public int TemplateId { get; set; }
+
         public string Template { get; set; }
 
         public string Path { get; set; }

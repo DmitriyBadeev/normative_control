@@ -32,7 +32,7 @@ namespace NormativeControl.Controllers
 
         [Authorize]
         [HttpGet("/api/errors")]
-        public async Task<IActionResult> GetErrors()
+        public async Task<IActionResult> GetErrors([FromQuery] int templateId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
 
@@ -43,10 +43,17 @@ namespace NormativeControl.Controllers
             if (!dirInfo.Exists)
                 return StatusCode(400);
 
-            var document = new Document(path, new CourseWork());
-            var errors = document.GetErrors();
+            var template = TemplateDependency.GetTemplate(templateId);
 
-            return Ok(ErrorsToString(errors));
+            if (template != null)
+            {
+                var document = new Document(path, template);
+                var errors = document.GetErrors();
+
+                return Ok(ErrorsToString(errors));
+            }
+
+            return Ok(new List<string>());
         }
 
         private List<string> ErrorsToString(List<Error> errors)

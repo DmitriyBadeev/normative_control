@@ -15,6 +15,7 @@ namespace NormativeControl.Models
 
         public DbSet<Error> Errors { get; set; }
 
+        public DbSet<Template> Templates { get; set; }
 
         public Context(DbContextOptions<Context> options)
             : base(options)

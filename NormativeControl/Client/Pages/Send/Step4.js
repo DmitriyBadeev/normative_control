@@ -13,7 +13,7 @@ export default function ({templates, selectedTemplate, isGlobalChecked, getGloba
 
     const Send = () => {
 
-        API.SendWork(file, templates[selectedTemplate - 1], check.isEmail)
+        API.SendWork(file, templates[selectedTemplate - 1].id, check.isEmail)
             .then(res => {
                setOpen(true);
             })
@@ -32,7 +32,7 @@ export default function ({templates, selectedTemplate, isGlobalChecked, getGloba
         <div className="step__table mt-30">
             <div className="step__row">
                 <p className="step__el step__el_key">Выбран шаблон:</p>
-                <p className="step__el step__el_value">{templates[selectedTemplate - 1]}</p>
+                <p className="step__el step__el_value">{templates[selectedTemplate - 1].name}</p>
             </div>
             <div className="step__row">
                 <p className="step__el step__el_key">Загружен файл:</p>

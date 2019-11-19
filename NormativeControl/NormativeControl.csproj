@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Client\" />
+    <Folder Include="StaticWords\Templates\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

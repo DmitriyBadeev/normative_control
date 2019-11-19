@@ -43,16 +43,23 @@ export function UploadTempFile(file) {
     return axios.post(Config.PATH + Config.UPLOAD_TEMP_FILE_URL, formData, AuthConfig);
 }
 
-export function GetErrors() {
+export function GetErrors(templateId) {
 
-    return axios.get(Config.PATH + Config.GET_ERRORS, AuthConfig);
+    const config = {
+        ...AuthConfig,
+        params: {
+            "templateId": templateId,
+        },
+    };
+
+    return axios.get(Config.PATH + Config.GET_ERRORS, config);
 }
 
-export function SendWork(file, template, isEmail) {
+export function SendWork(file, templateId, isEmail) {
 
     const formData = new FormData();
     formData.append("File", file);
-    formData.append("Template", template);
+    formData.append("TemplateId", templateId);
     formData.append("IsEmailNotification", isEmail);
 
     return axios.post(Config.PATH + Config.SEND_WORK, formData, AuthConfig)
@@ -97,6 +104,25 @@ export function UploadFile(file, workId, status) {
     formData.append("Status", status);
 
     return axios.post(Config.PATH + Config.UPLOAD_WORK_FILE, formData, AuthConfig);
+}
+
+export function PostTemplate(name, file) {
+
+    const formData = new FormData();
+    formData.append("Name", name);
+    formData.append("File", file);
+
+    return axios.post(Config.PATH + Config.POST_TEMPLATE, formData, AuthConfig);
+}
+
+export function DeleteTemplate(id) {
+
+    return axios.delete(Config.PATH + Config.DELETE_TEMPLATE(id), AuthConfig);
+}
+
+export function GetTemplates() {
+
+    return axios.get(Config.PATH + Config.GET_TEMPLATES)
 }
 
 export function AcceptWork(id) {

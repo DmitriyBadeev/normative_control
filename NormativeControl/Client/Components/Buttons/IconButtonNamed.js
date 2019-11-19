@@ -10,7 +10,7 @@ export default function IconButtonNamed({text, icon, className, disable, onClick
         return <div className={`icon-button ${className} ${disable && 'icon-button__disable'}`}>
             <div className="icon-button__icon"><FontAwesomeIcon icon={icon} /></div>
             <label htmlFor={id} className="icon-button__text">{text}</label>
-            <input id={id} accept=".docx" type='file' className="opacity-0 input-file-btn" disabled={disable} onChange={onClick}/>
+            <input id={id} accept=".docx" type='file' className="opacity-0 input-file-btn z-i_-1" disabled={disable} onChange={onClick}/>
         </div>;
 
     return <button className={`icon-button ${className}`} disabled={disable} onClick={onClick}>

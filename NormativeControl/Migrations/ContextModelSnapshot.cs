@@ -38,6 +38,21 @@ namespace NormativeControl.Migrations
                     b.ToTable("Errors");
                 });
 
+            modelBuilder.Entity("NormativeControl.Models.Template", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Path");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Templates");
+                });
+
             modelBuilder.Entity("NormativeControl.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -80,6 +95,8 @@ namespace NormativeControl.Migrations
                     b.Property<int>("StudentId");
 
                     b.Property<string>("Template");
+
+                    b.Property<int>("TemplateId");
 
                     b.HasKey("Id");
 

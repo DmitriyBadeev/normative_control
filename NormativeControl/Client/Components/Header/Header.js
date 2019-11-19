@@ -80,6 +80,9 @@ class Header extends React.Component {
             return <nav className="nav">
                 <Link className={`nav__link ${currentUrl === '/normcontrol'? 'active':''}`} to='/normcontrol'>Главная</Link>
                 <Link className={`nav__link ${currentUrl === '/normcontrol/check'? 'active':''}`} to='/normcontrol/check'>Проверка студенческих работ</Link>
+                <Link className={`nav__link ${currentUrl === '/normcontrol/create-template'? 'active':''}`}
+                      to='/normcontrol/create-template'>Шаблоны</Link>
+                <Link className={`nav__link ${currentUrl === '/normcontrol/students'? 'active':''}`} to='/normcontrol/students'>Студенты</Link>
             </nav>
         }
     }

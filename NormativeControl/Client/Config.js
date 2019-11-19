@@ -23,6 +23,12 @@ export const PUT_ERRORS = 'put-error';
 
 export const UPLOAD_WORK_FILE = 'upload-file-work';
 
+export const POST_TEMPLATE = 'templates';
+
+export const GET_TEMPLATES = 'templates';
+
+export const DELETE_TEMPLATE = (id) => `templates/${id}`;
+
 export const ACCEPT_WORK = (id) => `accept-work/${id}`;
 
 export const STATUS = {

@@ -13,6 +13,8 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import LiteButton from "../../Components/Buttons/LiteButton";
 
+import * as API from '../../API';
+
 class Send extends React.Component{
     constructor(props) {
         super(props);
@@ -24,10 +26,7 @@ class Send extends React.Component{
                 'Выбор шаблона', 'Загрузка работы', 'Проверка', 'Отправка'
             ],
             selectedTemplate: 1,
-            templates: [
-                'Курсовой отчет',
-                'Дипломная работа'
-            ],
+            templates: [],
             file: null,
             isSuccessLoaded: false,
             errors: [],
@@ -44,6 +43,16 @@ class Send extends React.Component{
         this.successLoaded = this.successLoaded.bind(this);
         this.setErrors = this.setErrors.bind(this);
         this.setUrlFile = this.setUrlFile.bind(this);
+    }
+
+    componentDidMount() {
+        API.GetTemplates()
+            .then(res => {
+                this.setState({templates: res.data})
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     setUrlFile(url) {
