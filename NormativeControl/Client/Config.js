@@ -31,6 +31,8 @@ export const DELETE_TEMPLATE = (id) => `templates/${id}`;
 
 export const ACCEPT_WORK = (id) => `accept-work/${id}`;
 
+export const GET_ALL_USERS = 'users';
+
 export const STATUS = {
     CHECK: "Проверка нормоконтролером",
     PENDING_CORRECTION: "Ожидание исправления",

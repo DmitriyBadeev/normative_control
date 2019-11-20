@@ -83,6 +83,36 @@ namespace NormativeControl.Controllers
             return Ok(response);
         }
 
+        [Authorize]
+        [HttpGet("/api/users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!User.IsInRole(Role.NORMCONTROL))
+            {
+                return StatusCode(403);
+            }
+
+            var users = _context.Users.Select(u => new
+                {
+                    id = u.Id,
+                    email = u.Email,
+                    name = u.Name,
+                    lastName = u.LastName,
+                    group = u.Group,
+                    role = u.Role
+                })
+                .OrderBy(u => u.lastName)
+                .GroupBy(u => u.group);
+
+            return Ok(users);
+        }
+
+
         private User GetUser(string login, string password)
         {
             var potentialUser = _context.Users

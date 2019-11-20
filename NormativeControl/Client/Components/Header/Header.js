@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as Config from '../../Config';
 import * as API from "../../API";
 
-import logo from '../../img/logo.png';
+import logo from '../../assets/logo.png';
 import './header.sass'
 import {authFail, authSuccess} from "../../Store/Auth/actions";
 import Loading from "../Loading/Loading";

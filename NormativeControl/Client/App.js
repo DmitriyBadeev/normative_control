@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import rootReducer from './store/rootReducer';
+import rootReducer from './Store/rootReducer';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
@@ -21,7 +21,8 @@ import {
     faTimes,
     faDownload,
     faUpload,
-    faPlus
+    faPlus,
+    faChevronDown, faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -33,7 +34,9 @@ library.add(
     faTimes,
     faDownload,
     faUpload,
-    faPlus
+    faPlus,
+    faChevronDown,
+    faAngleDown
 );
 
 import './index.sass';

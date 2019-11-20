@@ -4,8 +4,6 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import App from './App';
 import Loading from "./Components/Loading/Loading";
 
-
-
 const MainNorm = React.lazy(() => import("./Pages/Main/MainNorm"));
 const Check = React.lazy(() => import("./Pages/Check/Check"));
 const CreateTemplate = React.lazy(() => import("./Pages/CreateTemplate/CreateTemplate"));

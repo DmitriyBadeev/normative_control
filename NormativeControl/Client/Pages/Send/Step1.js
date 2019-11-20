@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './send.sass';
-import {Link} from "react-router-dom";
 
 export default class Step1 extends React.Component{
     constructor(props) {

@@ -130,6 +130,11 @@ export function AcceptWork(id) {
     return axios.post(Config.PATH + Config.ACCEPT_WORK(id), {}, AuthConfig)
 }
 
+export function GetUsers() {
+
+    return axios.get(Config.PATH + Config.GET_ALL_USERS, AuthConfig);
+}
+
 
 
 

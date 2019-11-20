@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
-import DocxIcon from '../../img/docx.svg'
+import DocxIcon from '../../assets/docx.svg'
 
 import './dropzone.sass'
 

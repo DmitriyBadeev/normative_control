@@ -6,7 +6,7 @@ const initState = {
     userData: {}
 };
 
-export default function AuthReducer(state = initState, action) {
+export function AuthReducer(state = initState, action) {
 
     switch (action.type) {
         case AUTHORIZATION_SUCCESS:

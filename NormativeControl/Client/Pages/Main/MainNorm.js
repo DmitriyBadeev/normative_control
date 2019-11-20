@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 
-import statusIcon from "../../img/checklist.svg";
-import templateIcon from "../../img/template.svg";
-import studentsIcon from "../../img/students.svg";
+import statusIcon from "../../assets/checklist.svg";
+import templateIcon from "../../assets/template.svg";
+import studentsIcon from "../../assets/students.svg";
 
 function MainNorm() {
 

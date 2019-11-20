@@ -81,6 +81,11 @@ namespace NormativeControl.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (!User.IsInRole(Role.NORMCONTROL))
+            {
+                return StatusCode(403);
+            }
+
             var template = await _context.Templates.FindAsync(id);
             if (template == null)
             {

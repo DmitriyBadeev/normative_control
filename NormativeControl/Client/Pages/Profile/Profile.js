@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './profile.sass';
-import studentIcon from '../../img/student.svg'
+import studentIcon from '../../assets/student.svg'
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 

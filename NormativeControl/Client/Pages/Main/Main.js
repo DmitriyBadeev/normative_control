@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import {Link, withRouter} from 'react-router-dom'
 
 import './main.sass';
-import normsIcon from '../../img/documents.svg'
-import sendIcon from '../../img/open-email.svg'
-import statusIcon from '../../img/checklist.svg'
+import normsIcon from '../../assets/documents.svg'
+import sendIcon from '../../assets/open-email.svg'
+import statusIcon from '../../assets/checklist.svg'
 import {connect} from "react-redux";
 
 
