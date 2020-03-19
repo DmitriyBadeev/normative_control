@@ -4638,6 +4638,19 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "BL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "DocumentFormat.OpenXml": "2.9.1"
+        },
+        "compile": {
+          "bin/placeholder/BL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BL.dll": {}
+        }
       }
     }
   },
@@ -12641,10 +12654,16 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "BL/1.0.0": {
+      "type": "project",
+      "path": "../BL2/BL.csproj",
+      "msbuildProject": "../BL2/BL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "BL >= 1.0.0",
       "DocumentFormat.OpenXml >= 2.9.1",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
@@ -12681,7 +12700,14 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Admin\\Desktop\\Проекты\\Система нормконтроля 3 семестр\\NormativeControl\\BL2\\BL.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\Проекты\\Система нормконтроля 3 семестр\\NormativeControl\\BL2\\BL.csproj"
+            },
+            "C:\\Users\\Admin\\Desktop\\Проекты\\Система нормконтроля 3 семестр\\NormativeControl\\BL\\BL.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\Проекты\\Система нормконтроля 3 семестр\\NormativeControl\\BL\\BL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -12709,6 +12735,7 @@
             "version": "[2.1.2, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
@@ -12719,10 +12746,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

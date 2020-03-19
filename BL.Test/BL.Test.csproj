@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestDocuments\FieldDocs\FieldAllWrong.docx" />
+    <None Remove="TestDocuments\FieldDocs\FieldLeft.docx" />
+    <None Remove="TestDocuments\FieldDocs\FieldOk.docx" />
+    <None Remove="TestDocuments\FieldDocs\FieldRight.docx" />
+    <None Remove="TestDocuments\FieldDocs\FieldUpDown.docx" />
+    <None Remove="TestDocuments\ParagraphDocs\FontDocsRight.docx" />
+    <None Remove="TestDocuments\ParagraphDocs\FontDocsWrong.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TestDocuments\FieldDocs\FieldAllWrong.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDocuments\FieldDocs\FieldLeft.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDocuments\FieldDocs\FieldOk.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDocuments\FieldDocs\FieldRight.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDocuments\FieldDocs\FieldUpDown.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDocuments\ParagraphDocs\FontDocsRight.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDocuments\ParagraphDocs\FontDocsWrong.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BL2\BL.csproj" />
+    <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+</Project>

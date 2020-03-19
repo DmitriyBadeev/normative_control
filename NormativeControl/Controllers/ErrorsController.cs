@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NormativeControl.Models;
-using NormativeControl.CheckDocuments;
 using NormativeControl.Config;
-using Document = NormativeControl.CheckDocuments.Document;
-using Error = NormativeControl.CheckDocuments.Error;
 
 namespace NormativeControl.Controllers
 {
@@ -47,7 +41,7 @@ namespace NormativeControl.Controllers
 
             if (template != null)
             {
-                var document = new Document(path, template);
+                var document = new BL.Document(path, template);
                 var errors = document.GetErrors();
 
                 return Ok(ErrorsToString(errors));
@@ -56,12 +50,13 @@ namespace NormativeControl.Controllers
             return Ok(new List<string>());
         }
 
-        private List<string> ErrorsToString(List<Error> errors)
+        private List<string> ErrorsToString(Dictionary<int, List<BL.Error>> errors)
         {
             var errorsInString = new List<string>();
 
-            foreach (var error in errors)
-                errorsInString.Add($"{error.Parameter} (Ожидалось: {error.ExpectValue}, Было: {error.Value})");
+            foreach (var list in errors)
+                foreach (var error in list.Value)
+                    errorsInString.Add($"{error.Parameter} (Ожидалось: {error.ExpectValue}, Было: {error.Value}) в {list.Key} элементе");
 
             return errorsInString;
         }

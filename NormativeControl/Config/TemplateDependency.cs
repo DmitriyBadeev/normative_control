@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NormativeControl.CheckDocuments;
-using NormativeControl.CheckDocuments.Interfaces;
+using BL;
 
 namespace NormativeControl.Config
 {
